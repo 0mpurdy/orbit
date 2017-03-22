@@ -4,10 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { SolarSystemComponent } from './solar-system/solar-system.component';
+import { AstroBodyComponent } from './astro-body/astro-body.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SolarSystemComponent,
+    AstroBodyComponent
   ],
   imports: [
     BrowserModule,

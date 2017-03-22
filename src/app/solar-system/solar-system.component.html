@@ -1,0 +1,7 @@
+<h1>Solar System</h1>
+<p>{{sunData}}</p>
+<div class="solar-system" [style.width]="solarSystem?.width + 'px'" [style.height]="solarSystem?.height + 'px'">
+  <div class="sun" [style.left]="sun?.xPosition + 'px'" [style.top]="sun?.yPosition + 'px'" [style.width]="(sun?.radius * 2) + 'px'"
+    [style.height]="(sun?.radius * 2) + 'px'"></div>
+  <app-astro-body *ngFor="let astroBody of astroBodies" [astroBody]="astroBody" [parentBody]="sun"></app-astro-body>
+</div>

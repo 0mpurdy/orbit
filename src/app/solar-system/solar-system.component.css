@@ -1,0 +1,6 @@
+.sun {
+    border: solid 3px darkorange;
+    background-color: yellow;
+    position: absolute;
+    border-radius: 100px;
+}

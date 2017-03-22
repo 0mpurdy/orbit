@@ -1,0 +1,49 @@
+.name-tag {
+    position: absolute;
+    margin: 0px;
+}
+
+.earth {
+
+    border: solid 3px lightblue;
+    background-color: green;
+    position: absolute;
+    border-radius: 100px;
+
+}
+
+.moon {
+
+    border: solid 3px darkgray;
+    background-color: gray;
+    position: absolute;
+    border-radius: 100px;
+
+}
+
+.jupiter {
+
+    border: solid 3px darkred;
+    background-color: #411;
+    position: absolute;
+    border-radius: 100px;
+
+}
+
+.io {
+
+    border: solid 3px darkgray;
+    background-color: gray;
+    position: absolute;
+    border-radius: 100px;
+
+}
+
+.ganymede {
+
+    border: solid 3px darkgray;
+    background-color: gray;
+    position: absolute;
+    border-radius: 100px;
+
+}
