@@ -1,3 +1,7 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .sun {
     border: solid 3px darkorange;
     background-color: yellow;
@@ -5,6 +9,12 @@
     border-radius: 100px;
 }
 
-.data {
-    font-family: Arial, Helvetica, sans-serif;
+.large-checkbox {
+    display: flex;
+    align-items: center;
+}
+
+.large-checkbox input {
+    width: 34px;
+    height: 34px;
 }

@@ -14,6 +14,9 @@ export class SolarSystemComponent implements OnInit {
   systemData: string[] = [];
   solarSystem: any = {};
 
+  showLabels = true;
+  showData = false;
+
   astroBodies: AstroBody[] = [];
 
   constructor() { }

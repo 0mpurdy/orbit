@@ -1,5 +1,5 @@
 <div [ngClass]="getSpaceClass()" [style.left]="astroBody?.xPosition + 'px'" [style.top]="astroBody?.yPosition + 'px'" [style.width]="(astroBody?.radius * 2) + 'px'"
   [style.height]="(astroBody?.radius * 2) + 'px'" [style.border-radius]="astroBody?.radius"></div>
-  <p class="name-tag" [style.left]="astroBody?.xPosition + 'px'" [style.top]="(astroBody?.yPosition - 30) + 'px'">{{astroBody.name}}</p>
+  <p *ngIf="displayLabel" class="name-tag" [style.left]="astroBody?.xPosition + 'px'" [style.top]="(astroBody?.yPosition - 30) + 'px'">{{astroBody.name}}</p>
 
-<app-astro-body *ngFor="let satellite of astroBody.satellites" [astroBody]="satellite" [parentBody]="astroBody"></app-astro-body>
+<app-astro-body *ngFor="let satellite of astroBody.satellites" [astroBody]="satellite" [parentBody]="astroBody" [displayLabel]="displayLabel"></app-astro-body>

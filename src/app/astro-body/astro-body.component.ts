@@ -10,6 +10,7 @@ export class AstroBodyComponent implements OnInit {
   @Input() astroBody: AstroBody;
   @Input() parentBody: AstroBody;
   @Input() fixed: boolean;
+  @Input() displayLabel: boolean;
 
   time = 0;
 
