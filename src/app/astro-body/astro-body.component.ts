@@ -26,7 +26,7 @@ export class AstroBodyComponent implements OnInit {
   }
 
   getSpaceClass() {
-    return this.astroBody.name;
+    return this.astroBody.name.toLocaleLowerCase();
   }
 
 }

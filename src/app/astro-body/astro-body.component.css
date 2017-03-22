@@ -1,49 +1,49 @@
 .name-tag {
     position: absolute;
+    font-family: Arial, Helvetica, sans-serif;
     margin: 0px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 3px;
+    z-index: 5;
 }
 
 .earth {
-
     border: solid 3px lightblue;
     background-color: green;
     position: absolute;
     border-radius: 100px;
-
+    z-index: 10;
 }
 
 .moon {
-
     border: solid 3px darkgray;
     background-color: gray;
     position: absolute;
     border-radius: 100px;
-
+    z-index: 10;
 }
 
 .jupiter {
-
     border: solid 3px darkred;
     background-color: #411;
     position: absolute;
     border-radius: 100px;
-
+    z-index: 10;
 }
 
 .io {
-
     border: solid 3px darkgray;
     background-color: gray;
     position: absolute;
     border-radius: 100px;
-
+    z-index: 10;
 }
 
 .ganymede {
-
     border: solid 3px darkgray;
     background-color: gray;
     position: absolute;
     border-radius: 100px;
-
+    z-index: 10;
 }

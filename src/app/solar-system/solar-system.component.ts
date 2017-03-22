@@ -11,7 +11,7 @@ import { AstroBody } from '../astro-body/astro-body.component';
 export class SolarSystemComponent implements OnInit {
 
   sun: AstroBody;
-  sunData: string;
+  systemData: string[] = [];
   solarSystem: any = {};
 
   astroBodies: AstroBody[] = [];
@@ -20,15 +20,18 @@ export class SolarSystemComponent implements OnInit {
 
   ngOnInit() {
     this.updateSystemDimensions();
-    this.sun = new AstroBody({ name: "sun", radius: 50, xPosition: (this.solarSystem.width / 2), yPosition: (this.solarSystem.height / 2) });
-    this.astroBodies.push(new AstroBody({ name: "earth", radius: 10, orbitRadius: 200 }));
-    this.astroBodies[0].satellites = [new AstroBody({ name: "moon", radius: 3, orbitRadius: 50, orbitSpeed: -1 })];
-    this.astroBodies.push(new AstroBody({ name: "jupiter", radius: 20, orbitRadius: 400, orbitSpeed: 0.4 }));
+    this.sun = new AstroBody({ name: "Sun", radius: 30, xPosition: (this.solarSystem.width / 2), yPosition: (this.solarSystem.height / 2) });
+    this.astroBodies.push(new AstroBody({ name: "Earth", radius: 5, orbitRadius: 100 }));
+    this.astroBodies[0].satellites = [new AstroBody({ name: "Moon", radius: 2, orbitRadius: 30, orbitSpeed: -1 })];
+    this.astroBodies.push(new AstroBody({ name: "Jupiter", radius: 15, orbitRadius: 250, orbitSpeed: 0.4 }));
     this.astroBodies[1].satellites = [
-      new AstroBody({ name: "io", radius: 3, orbitRadius: 50, orbitSpeed: -1 }),
-      new AstroBody({ name: "ganymede", radius: 4, orbitRadius: 75, orbitSpeed: 1.5 })
+      new AstroBody({ name: "Io", radius: 3, orbitRadius: 30, orbitSpeed: -1 }),
+      new AstroBody({ name: "Ganymede", radius: 4, orbitRadius: 75, orbitSpeed: 1.5 })
     ];
-    this.sunData = JSON.stringify(this.sun);
+    this.systemData.push(JSON.stringify(this.sun));
+    this.astroBodies.forEach(element => {
+      this.systemData.push(JSON.stringify(element))
+    });
 
     setInterval(() => {
       this.updateSystemDimensions();
