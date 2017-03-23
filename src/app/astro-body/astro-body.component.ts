@@ -19,9 +19,9 @@ export class AstroBodyComponent implements OnInit {
   ngOnInit() {
 
     setInterval(() => {
-      this.astroBody.xPosition = (this.parentBody.xPosition + this.parentBody.radius) + (this.astroBody.orbitRadius * Math.cos(this.time * this.astroBody.orbitSpeed));
-      this.astroBody.yPosition = (this.parentBody.yPosition + this.parentBody.radius) + (this.astroBody.orbitRadius * Math.sin(this.time * this.astroBody.orbitSpeed));
-      this.time += 0.0125;
+      this.astroBody.xPosition = (this.parentBody.xPosition + this.parentBody.radius - this.astroBody.radius) + (this.astroBody.orbitRadius * Math.cos(this.time * this.astroBody.orbitSpeed));
+      this.astroBody.yPosition = (this.parentBody.yPosition + this.parentBody.radius - this.astroBody.radius) + (this.astroBody.orbitRadius * Math.sin(this.time * this.astroBody.orbitSpeed));
+      this.time += 0.01;
     }, 10);
 
   }
