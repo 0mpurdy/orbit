@@ -11,6 +11,8 @@ import { AstroBody } from '../astro-body/astro-body.component';
 export class SolarSystemComponent implements OnInit {
 
   time = 1;
+  timeIncrement = 0;
+  delay = 10;
 
   sun: AstroBody;
   systemData: string[] = [];
@@ -21,7 +23,6 @@ export class SolarSystemComponent implements OnInit {
 
   astroBodies: AstroBody[] = [];
 
-  // orbitTrackers: any[] = [];
   orbitTracker: any;
   orbitTrackerCount: number;
 
@@ -39,6 +40,7 @@ export class SolarSystemComponent implements OnInit {
     });
 
     this.setSunPosition();
+    this.speedUpOrbit();
 
     // setInterval(() => {
     //   this.updateSystemDimensions();
@@ -47,14 +49,29 @@ export class SolarSystemComponent implements OnInit {
     // }, 200);
   }
 
+  changeDelay() {
+    console.log('Delay changed to: ' + this.delay);
+    clearInterval(this.orbitTracker);
+    this.orbitTracker = setInterval(() => {
+      this.time += this.timeIncrement;
+    }, this.delay);
+  }
+
   speedUpOrbit() {
-    // this.orbitTrackers.push(setInterval(() => {
-    //   this.time += 0.01;
-    // }, 100));
+    if (this.timeIncrement <= 0) {
+      this.timeIncrement = 0.001;
+      this.changeDelay();
+    } else {
+      this.timeIncrement = this.timeIncrement * 1.5;
+    }
   }
 
   slowDownOrbit() {
-    // clearInterval(this.orbitTrackers.pop());
+    this.timeIncrement = this.timeIncrement * 0.5;
+    if (this.timeIncrement < 0.001) {
+      this.timeIncrement = 0;
+      clearInterval(this.orbitTracker);
+    }
   }
 
   updateSystemDimensions() {

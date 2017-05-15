@@ -15,8 +15,10 @@
 </div>
 
 <button type="button" (click)="speedUpOrbit()">Speed Up</button> <button type="button" (click)="slowDownOrbit()">Slow Down</button>
-
-<input type="number" [(ngModel)]="time">
+<br/>
+<p>Time <input type="number" [(ngModel)]="time"></p>
+<p>Time Increment <input type="number" [(ngModel)]="timeIncrement"></p>
+<p>Delay <input type="number" [(ngModel)]="delay"> <button (click)="changeDelay()">Change Delay</button></p>
 
 <div class="solar-system" [style.width]="solarSystem?.width + 'px'" [style.height]="solarSystem?.height + 'px'">
   <div class="sun" [style.left]="sun?.xPosition + 'px'" [style.top]="sun?.yPosition + 'px'" [style.width]="(sun?.radius * 2) + 'px'"
