@@ -7,6 +7,7 @@
     background-color: yellow;
     position: absolute;
     border-radius: 100px;
+    z-index: 10;
 }
 
 .large-checkbox {

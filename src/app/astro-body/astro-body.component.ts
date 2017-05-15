@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { SolarSystem } from '../solar-system/solar-system.component';
+
 @Component({
   selector: 'app-astro-body',
   templateUrl: './astro-body.component.html',
@@ -7,23 +9,47 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class AstroBodyComponent implements OnInit {
 
+  @Input() solarSystem: SolarSystem;
   @Input() astroBody: AstroBody;
   @Input() parentBody: AstroBody;
   @Input() fixed: boolean;
   @Input() displayLabel: boolean;
+  @Input() time: number;
 
-  time = 0;
+  orbitTracker;
 
   constructor() { }
 
   ngOnInit() {
 
-    setInterval(() => {
-      this.astroBody.xPosition = (this.parentBody.xPosition + this.parentBody.radius - this.astroBody.radius) + (this.astroBody.orbitRadius * Math.cos(this.time * this.astroBody.orbitSpeed));
-      this.astroBody.yPosition = (this.parentBody.yPosition + this.parentBody.radius - this.astroBody.radius) + (this.astroBody.orbitRadius * Math.sin(this.time * this.astroBody.orbitSpeed));
+    this.setThisPosition(this.time);
+
+  }
+
+  ngOnChanges() {
+
+    this.setThisPosition(this.time);
+  }
+
+  setThisPosition(time: number) {
+    this.setPosition(this.astroBody, this.parentBody, time);
+  }
+
+  setPosition(astroBody: AstroBody, parentBody: AstroBody, time: number) {
+    // radius * 0.5 for border width
+    astroBody.xPosition = (parentBody.xPosition + parentBody.radius - (astroBody.radius * 0.5)) + (astroBody.orbitRadius * Math.cos(time * astroBody.orbitSpeed));
+    astroBody.yPosition = (parentBody.yPosition + parentBody.radius - (astroBody.radius * 0.5)) + (astroBody.orbitRadius * Math.sin(time * astroBody.orbitSpeed));
+  }
+
+  startOrbit() {
+    this.orbitTracker = setInterval(() => {
+      this.setThisPosition(this.time);
       this.time += 0.01;
     }, 10);
+  }
 
+  stopOrbit() {
+    clearInterval(this.orbitTracker);
   }
 
   getSpaceClass() {
@@ -38,8 +64,8 @@ export class AstroBody {
   xPosition: number;
   yPosition: number;
   orbitRadius: number;
-  satellites: AstroBody[];
   orbitSpeed: number;
+  satellites: AstroBody[];
 
   constructor(details?: {
     name?: string,
@@ -47,7 +73,8 @@ export class AstroBody {
     xPosition?: number,
     yPosition?: number,
     orbitRadius?: number,
-    orbitSpeed?: number
+    orbitSpeed?: number,
+    satellites?: AstroBody[]
   }) {
     if (details) {
       this.name = details.name;
@@ -55,6 +82,7 @@ export class AstroBody {
       this.xPosition = details.xPosition;
       this.orbitRadius = details.orbitRadius;
       this.orbitSpeed = details.orbitSpeed ? details.orbitSpeed : 1;
+      this.satellites = details.satellites ? details.satellites : [];
     }
   }
 }

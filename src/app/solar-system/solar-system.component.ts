@@ -10,38 +10,51 @@ import { AstroBody } from '../astro-body/astro-body.component';
 })
 export class SolarSystemComponent implements OnInit {
 
+  time = 1;
+
   sun: AstroBody;
   systemData: string[] = [];
-  solarSystem: any = {};
+  solarSystem: SolarSystem = new SolarSystem();
 
   showLabels = true;
   showData = false;
 
   astroBodies: AstroBody[] = [];
 
+  // orbitTrackers: any[] = [];
+  orbitTracker: any;
+  orbitTrackerCount: number;
+
   constructor() { }
 
   ngOnInit() {
     this.updateSystemDimensions();
-    this.sun = new AstroBody({ name: "Sun", radius: 30, xPosition: (this.solarSystem.width / 2), yPosition: (this.solarSystem.height / 2) });
-    this.astroBodies.push(new AstroBody({ name: "Earth", radius: 5, orbitRadius: 100 }));
-    this.astroBodies[0].satellites = [new AstroBody({ name: "Moon", radius: 2, orbitRadius: 30, orbitSpeed: -1 })];
-    this.astroBodies.push(new AstroBody({ name: "Jupiter", radius: 15, orbitRadius: 400, orbitSpeed: 0.4 }));
-    this.astroBodies[1].satellites = [
-      new AstroBody({ name: "Io", radius: 3, orbitRadius: 30, orbitSpeed: -1 }),
-      new AstroBody({ name: "Ganymede", radius: 4, orbitRadius: 75, orbitSpeed: 1.5 })
-    ];
-    this.astroBodies.push(new AstroBody({ name: "Mars", radius: 4, orbitRadius: 200, orbitSpeed: 0.8 }));    
+    this.solarSystem.scalingFactor = Math.min(this.solarSystem.height, this.solarSystem.width);
+    this.solarSystem.orbitSpeedFactor = 2;
+    this.sun = this.getSun(this.solarSystem);
+    this.astroBodies = this.getPlanets(this.solarSystem);
     this.systemData.push(JSON.stringify(this.sun));
     this.astroBodies.forEach(element => {
       this.systemData.push(JSON.stringify(element))
     });
 
-    setInterval(() => {
-      this.updateSystemDimensions();
-      this.sun.xPosition = (this.solarSystem.width / 2) - this.sun.radius;
-      this.sun.yPosition = (this.solarSystem.height / 2) - this.sun.radius;
-    }, 200);
+    this.setSunPosition();
+
+    // setInterval(() => {
+    //   this.updateSystemDimensions();
+    //   this.sun.xPosition = (this.solarSystem.width / 2) - this.sun.radius;
+    //   this.sun.yPosition = (this.solarSystem.height / 2) - this.sun.radius;
+    // }, 200);
+  }
+
+  speedUpOrbit() {
+    // this.orbitTrackers.push(setInterval(() => {
+    //   this.time += 0.01;
+    // }, 100));
+  }
+
+  slowDownOrbit() {
+    // clearInterval(this.orbitTrackers.pop());
   }
 
   updateSystemDimensions() {
@@ -53,4 +66,83 @@ export class SolarSystemComponent implements OnInit {
       || document.body.clientHeight;
   }
 
+  setSunPosition() {
+    this.updateSystemDimensions();
+    this.sun.xPosition = (this.solarSystem.width / 2) - this.sun.radius;
+    this.sun.yPosition = (this.solarSystem.height / 2) - this.sun.radius;
+  }
+
+  getSun(solarSystem: SolarSystem): AstroBody {
+    return new AstroBody({
+      name: "Sun",
+      radius: 0.02 * solarSystem.scalingFactor,
+      xPosition: (this.solarSystem.width / 2),
+      yPosition: (this.solarSystem.height / 2)
+    });
+  }
+
+  getPlanets(solarSystem: SolarSystem): AstroBody[] {
+    return [
+      new AstroBody({
+        name: "Mercury",
+        radius: 0.003 * solarSystem.scalingFactor,
+        orbitRadius: 0.05 * solarSystem.scalingFactor,
+        orbitSpeed: 1.5 * solarSystem.orbitSpeedFactor
+      }),
+      new AstroBody({
+        name: "Earth",
+        radius: 0.005 * solarSystem.scalingFactor,
+        orbitRadius: 0.15 * solarSystem.scalingFactor,
+        orbitSpeed: 1 * solarSystem.orbitSpeedFactor,
+        satellites: [
+          new AstroBody({
+            name: "Moon",
+            radius: 0.002 * solarSystem.scalingFactor,
+            orbitRadius: 0.03 * solarSystem.scalingFactor,
+            orbitSpeed: -1 * solarSystem.orbitSpeedFactor
+          })
+        ]
+      }),
+      new AstroBody({
+        name: "Mars",
+        radius: 0.004 * solarSystem.scalingFactor,
+        orbitRadius: 0.27 * solarSystem.scalingFactor,
+        orbitSpeed: 0.6 * solarSystem.orbitSpeedFactor
+      }),
+      new AstroBody({
+        name: "Jupiter",
+        radius: 0.008 * solarSystem.scalingFactor,
+        orbitRadius: 0.35 * solarSystem.scalingFactor,
+        orbitSpeed: 0.4 * solarSystem.orbitSpeedFactor,
+        satellites: [
+          new AstroBody({
+            name: "Io",
+            radius: 0.003 * solarSystem.scalingFactor,
+            orbitRadius: 0.030 * solarSystem.scalingFactor,
+            orbitSpeed: -1 * solarSystem.orbitSpeedFactor
+          }),
+          new AstroBody({
+            name: "Ganymede",
+            radius: 0.004 * solarSystem.scalingFactor,
+            orbitRadius: 0.050 * solarSystem.scalingFactor,
+            orbitSpeed: 1.5 * solarSystem.orbitSpeedFactor
+          })
+        ]
+      }),
+      new AstroBody({
+        name: "Pluto",
+        radius: 0.004 * solarSystem.scalingFactor,
+        orbitRadius: 0.49 * solarSystem.scalingFactor,
+        orbitSpeed: 0.2 * solarSystem.orbitSpeedFactor
+      })
+    ];
+  }
+
+}
+
+export class SolarSystem {
+  width: number;
+  height: number;
+  scalingFactor: number;
+  orbitSpeedFactor: number;
 }
